@@ -14,6 +14,11 @@ public class StateMachine {
 		_currentState = initialState;
 	}
 
+	/**
+	 * Allow switching from one state to another
+	 * @param from initial state
+	 * @param to new state
+	 */
 	public function allowTransition(from:State, to:State):void {
 		finalCheck(_isFinal);
 		nullCheck(from);
@@ -24,6 +29,12 @@ public class StateMachine {
 		_transitions.push(new Transition(from, to));
 	}
 
+	/**
+	 * Disallow transition from one state to another (makes sense only if this transition already exists — no states
+	 * switching is allowed by default)
+	 * @param from initial state
+	 * @param to new state
+	 */
 	public function disallowTransition(from:State, to:State):void {
 		finalCheck(_isFinal);
 		nullCheck(from);
@@ -38,26 +49,39 @@ public class StateMachine {
 		}
 	}
 
+	/**
+	 * Restricts adding\removing transitions to state machine (raises error on attempt).
+	 * @param finalizeStates optional parameter, if true, restricts adding\removing state
+	 * handlers to state machine's states
+	 */
 	public function makeFinal(finalizeStates:Boolean = false):void {
 		_isFinal = true;
-		if (!finalizeStates)return;
+		if (!finalizeStates) return;
 		for each(var transition:Transition in _transitions) {
 			transition.from.makeFinal();
 			transition.to.makeFinal();
 		}
 	}
 
+	/**
+	 * Removes all transitions and resets all states (make them non final if they were final and removes all listeners)
+	 */
 	public function destroy():void {
 		_isFinal = false;
 		while (_transitions.length) {
 			_transitions.shift().destroy();
 		}
+		_currentState = null;
 	}
 
 	public function get currentState():State {
 		return _currentState;
 	}
 
+	/**
+	 * Switches state to passed, if transition between states is allowed (see allowTransition)
+	 * @param newState
+	 */
 	public function switchStateTo(newState:State):void {
 		nullCheck(newState);
 		for each(var transition:Transition in _transitions) {

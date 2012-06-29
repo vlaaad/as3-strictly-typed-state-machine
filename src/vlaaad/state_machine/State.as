@@ -18,8 +18,11 @@ public class State {
 	}
 
 	// ------------------ add handlers ------------------ //
-
-	public function addEnterStateHandler(handler:Main):void {
+	/**
+	 * Adds callback, called when state machine enters this state
+	 * @param handler
+	 */
+	public function addEnterStateHandler(handler:IEnterStateHandler):void {
 		StateMachine.finalCheck(_isFinal);
 		StateMachine.nullCheck(handler);
 		if (hasEnterStateHandler(handler)) return;
@@ -35,6 +38,10 @@ public class State {
 		}
 	}
 
+	/**
+	 * Adds callback, called when state machine leaves this state
+	 * @param handler
+	 */
 	public function addExitStateHandler(handler:IExitStateHandler):void {
 		StateMachine.finalCheck(_isFinal);
 		StateMachine.nullCheck(handler);
@@ -53,6 +60,10 @@ public class State {
 
 	// ------------------ remove handlers ------------------ //
 
+	/**
+	 * Removes callback, called when state machine enters this state.
+	 * @param handler
+	 */
 	public function removeEnterStateHandler(handler:IEnterStateHandler):void {
 		StateMachine.finalCheck(_isFinal);
 		StateMachine.nullCheck(handler);
@@ -71,6 +82,10 @@ public class State {
 		}
 	}
 
+	/**
+	 * Removes callback, called when state machine leaves this state.
+	 * @param handler
+	 */
 	public function removeExitStateHandler(handler:IExitStateHandler):void {
 		StateMachine.finalCheck(_isFinal);
 		StateMachine.nullCheck(handler);
@@ -133,6 +148,9 @@ public class State {
 		removeAllExitStateHandlers();
 	}
 
+	/**
+	 * restricts adding\removing handler for this state
+	 */
 	public function makeFinal():void {
 		_isFinal = true;
 	}
@@ -182,6 +200,9 @@ public class State {
 		return null;
 	}
 
+	/**
+	 * returns string, passed to constructor
+	 */
 	public function get name():String {
 		return _name;
 	}
