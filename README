@@ -1,9 +1,9 @@
 How to use it:
 
 ```
-const think:State = new State("think");
-const sleep:State = new State("sleep");
-const machine:StateMachine = new StateMachine(think);
+    const think:State = new State("think");
+    const sleep:State = new State("sleep");
+    const machine:StateMachine = new StateMachine(think);
 ```
 
 So, now we have state machine with initial state == think.
