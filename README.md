@@ -32,7 +32,7 @@ For any state you can add handlers this way:
     think.addExitStateHandler(exitStateHandler);
 
 
-Your handlers must implement IEnterStateHandler or IExitStatehandler, this interfaces has only one function: "onEnterState(state:State):void" or "onExitState(state:State)"
+Your handlers must implement IEnterStateHandler or IExitStatehandler, this interfaces has only one function: "onEnterState(state:State):void" or "onExitState(state:State)".
 So, no functions as arguments, only OOP, only hardcore!
 
 After creating your state machine with needed states and transitions, you can restrict any modifications to this transitions by calling:
@@ -40,7 +40,7 @@ After creating your state machine with needed states and transitions, you can re
     machine.makeFinal();
 
 After making state machine final, any attempts to add\remove transition to it will lead to throwing error.
-Optionally, you can make final not only transitions, but also states used in this state machine.
+Optionally, you can make final not only transitions, but also states used in this state machine (this will restrict adding\removing handlers).
 
 After all, you can destroy state machine by calling:
 
